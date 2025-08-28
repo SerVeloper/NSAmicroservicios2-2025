@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import path from 'path';
 import bodyParser from 'body-parser';
-import taskRoutes from './routes/tasks.js';
+import taskRoutes from './src/routes/tasks.js';
 
 dotenv.config();
 
@@ -12,14 +12,14 @@ const PORT = process.env.PORT || 3000;
 
 // Configuración de EJS
 app.set('view engine', 'ejs');
-app.set('views', path.join(process.cwd(), 'views'));
+app.set('views', path.join(process.cwd(), 'src/views'));
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Rutas
-app.use('/tasks', taskRoutes);
+app.use('/', taskRoutes);
 
 // Conexión a MongoDB con reintentos
 const connectDB = async () => {

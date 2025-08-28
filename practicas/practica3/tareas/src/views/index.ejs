@@ -16,7 +16,7 @@
 </head>
 <body>
   <h1>Lista de Tareas</h1>
-  <a href="/tasks/nuevo">Crear Nueva Tarea</a>
+  <a href="/nuevo">Crear Nueva Tarea</a>
   <table>
     <thead>
       <tr>
@@ -35,8 +35,8 @@
           <td><%= task.estado %></td>
           <td><%= task.fechaCreacion ? task.fechaCreacion.toISOString().slice(0,19).replace("T"," ") : 'Sin fecha' %></td>
           <td>
-            <a href="/tasks/editar/<%= task._id %>">Editar</a>
-            <form action="/tasks/eliminar/<%= task._id %>" method="POST" style="display:inline;">
+            <a href="/editar/<%= task._id %>">Editar</a>
+            <form action="/eliminar/<%= task._id %>" method="POST" style="display:inline;">
               <button type="submit">Eliminar</button>
             </form>
           </td>

@@ -16,7 +16,7 @@
 </head>
 <body>
   <h1><%= task ? 'Editar Tarea' : 'Crear Tarea' %></h1>
-  <form action="<%= task ? '/tasks/editar/' + task._id : '/tasks/nuevo' %>" method="POST">
+  <form action="<%= task ? '/editar/' + task._id : '/nuevo' %>" method="POST">
     <label for="titulo">Título:</label>
     <input type="text" id="titulo" name="titulo" value="<%= task ? task.titulo : '' %>" required>
     
@@ -32,6 +32,6 @@
     
     <button type="submit"><%= task ? 'Actualizar' : 'Crear' %></button>
   </form>
-  <a href="/tasks">Volver a la lista</a>
+  <a href="/">Volver a la lista</a>
 </body>
 </html>
