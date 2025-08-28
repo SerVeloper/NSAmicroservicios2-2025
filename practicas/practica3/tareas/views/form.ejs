@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title><%= task ? 'Editar Tarea' : 'Crear Tarea' %></title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    form { max-width: 500px; }
+    label { display: block; margin: 10px 0 5px; }
+    input, select, textarea { width: 100%; padding: 8px; margin-bottom: 10px; }
+    button { background-color: #0066cc; color: white; border: none; padding: 10px 20px; cursor: pointer; }
+    button:hover { background-color: #004c99; }
+    a { color: #0066cc; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <h1><%= task ? 'Editar Tarea' : 'Crear Tarea' %></h1>
+  <form action="<%= task ? '/tasks/editar/' + task._id : '/tasks/nuevo' %>" method="POST">
+    <label for="titulo">Título:</label>
+    <input type="text" id="titulo" name="titulo" value="<%= task ? task.titulo : '' %>" required>
+    
+    <label for="descripcion">Descripción:</label>
+    <textarea id="descripcion" name="descripcion" required><%= task ? task.descripcion : '' %></textarea>
+    
+    <label for="estado">Estado:</label>
+    <select id="estado" name="estado">
+      <option value="pendiente" <%= task && task.estado === 'pendiente' ? 'selected' : '' %>>Pendiente</option>
+      <option value="en progreso" <%= task && task.estado === 'en progreso' ? 'selected' : '' %>>En Progreso</option>
+      <option value="completado" <%= task && task.estado === 'completado' ? 'selected' : '' %>>Completado</option>
+    </select>
+    
+    <button type="submit"><%= task ? 'Actualizar' : 'Crear' %></button>
+  </form>
+  <a href="/tasks">Volver a la lista</a>
+</body>
+</html>
