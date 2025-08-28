@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agenda de Contactos</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Lista de Contactos</h1>
+    <a href="/crear" class="btn btn-primary">Agregar Contacto</a>
+    <% if (contactos && contactos.length > 0) { %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Dirección</th>
+            <th>Celular</th>
+            <th>Correo</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% contactos.forEach(contacto => { %>
+            <tr>
+              <td><%= contacto.id %></td>
+              <td><%= contacto.nombres %></td>
+              <td><%= contacto.apellidos %></td>
+              <td><%= contacto.fecha_nacimiento %></td>
+              <td><%= contacto.direccion || '-' %></td>
+              <td><%= contacto.celular %></td>
+              <td><%= contacto.correo %></td>
+              <td>
+                <a href="/editar/<%= contacto.id %>" class="btn btn-edit">Editar</a>
+                <form action="/eliminar/<%= contacto.id %>" method="POST" style="display:inline;">
+                  <button type="submit" class="btn btn-delete" onclick="return confirm('¿Estás seguro de eliminar este contacto?')">Eliminar</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } else { %>
+      <p class="no-data">No hay contactos registrados.</p>
+    <% } %>
+  </div>
+</body>
+</html>

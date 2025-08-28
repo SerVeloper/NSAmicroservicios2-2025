@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= contacto ? 'Editar Contacto' : 'Crear Contacto' %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1><%= contacto ? 'Editar Contacto' : 'Crear Contacto' %></h1>
+    <% if (error) { %>
+      <p class="error-message"><%= error %></p>
+    <% } %>
+    <form action="<%= contacto ? '/editar/' + contacto.id : '/crear' %>" method="POST" class="form">
+      <div class="form-group">
+        <label for="nombres">Nombres:</label>
+        <input type="text" id="nombres" name="nombres" value="<%= contacto ? contacto.nombres : '' %>" required>
+      </div>
+      <div class="form-group">
+        <label for="apellidos">Apellidos:</label>
+        <input type="text" id="apellidos" name="apellidos" value="<%= contacto ? contacto.apellidos : '' %>" required>
+      </div>
+      <div class="form-group">
+        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" value="<%= contacto ? contacto.fecha_nacimiento : '' %>" required>
+      </div>
+      <div class="form-group">
+        <label for="direccion">Dirección:</label>
+        <input type="text" id="direccion" name="direccion" value="<%= contacto ? contacto.direccion : '' %>">
+      </div>
+      <div class="form-group">
+        <label for="celular">Celular:</label>
+        <input type="text" id="celular" name="celular" value="<%= contacto ? contacto.celular : '' %>" required>
+      </div>
+      <div class="form-group">
+        <label for="correo">Correo:</label>
+        <input type="email" id="correo" name="correo" value="<%= contacto ? contacto.correo : '' %>" required>
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+    <a href="/" class="btn btn-secondary">Volver</a>
+  </div>
+</body>
+</html>
