@@ -1,6 +1,7 @@
 services:
   app:
     build: .
+    container_name: tarea
     ports:
       - "3000:3000"
     depends_on:

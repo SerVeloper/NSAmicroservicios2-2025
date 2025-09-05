@@ -37,7 +37,7 @@ router.post('/nuevo', async (req, res) => {
     const { titulo, descripcion, estado } = req.body;
     const newTask = new Task({ titulo, descripcion, estado });
     await newTask.save();
-    res.redirect('/tasks');
+    res.redirect('/');
   } catch (error) {
     console.error('Error al crear la tarea:', error.message);
     res.status(500).send('Error al crear la tarea: ' + error.message);
@@ -54,7 +54,7 @@ router.post('/editar/:id', async (req, res) => {
       { new: true, runValidators: true }
     );
     if (!updatedTask) return res.status(404).send('Tarea no encontrada');
-    res.redirect('/tasks');
+    res.redirect('/');
   } catch (error) {
     console.error('Error al actualizar la tarea:', error.message);
     res.status(500).send('Error al actualizar la tarea: ' + error.message);
@@ -66,7 +66,7 @@ router.post('/eliminar/:id', async (req, res) => {
   try {
     const deletedTask = await Task.findByIdAndDelete(req.params.id);
     if (!deletedTask) return res.status(404).send('Tarea no encontrada');
-    res.redirect('/tasks');
+    res.redirect('/');
   } catch (error) {
     console.error('Error al eliminar la tarea:', error.message);
     res.status(500).send('Error al eliminar la tarea: ' + error.message);
