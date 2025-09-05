@@ -1,7 +1,7 @@
 require("reflect-metadata");
 const { DataSource } = require("typeorm");
-const Mesa = require("./entity/Mesa");
-const Padron = require("./entity/Padron");
+const Libro = require("./entity/Libro");
+const Prestamo = require("./entity/Prestamo");
 
 const AppDataSource = new DataSource({
   type: "mysql",
@@ -9,10 +9,10 @@ const AppDataSource = new DataSource({
   port: 3306,
   username: "root",
   password: "nifer2030",
-  database: "graphql_practica",
+  database: "biblioteca_db",
   synchronize: true,
   logging: false,
-  entities: [Mesa, Padron],
+  entities: [Libro, Prestamo],
 });
 
 module.exports = { AppDataSource };
