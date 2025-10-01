@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - DB_CONNECTION=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USERNAME=serdev
+      - DB_PASSWORD=nifer2030
+      - DB_DATABASE=recurso_medico_db
+      - PORT=3000
+    depends_on:
+      - db
+    networks:
+      - app-network
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      - POSTGRES_USER=serdev
+      - POSTGRES_PASSWORD=nifer2030
+      - POSTGRES_DB=recurso_medico_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
