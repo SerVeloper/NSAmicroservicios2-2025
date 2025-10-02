@@ -1,5 +1,4 @@
-version: "3.9"
-
+version: '3.8'
 services:
   rabbitmq:
     image: rabbitmq:3-management
@@ -8,12 +7,19 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   producer:
     build: ./producer
     container_name: producer
     depends_on:
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
     env_file:
       - ./producer/.env
     ports:
@@ -23,6 +29,7 @@ services:
     build: ./consumer
     container_name: consumer
     depends_on:
-      - rabbitmq
+      rabbitmq:
+        condition: service_healthy
     env_file:
       - ./consumer/.env
