@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package vehiculos;
+
+// =============================
+// Servicio principal
+// =============================
+service VehiculosService {
+  rpc FindOne (FindOneRequest) returns (VehiculoResponse);
+  rpc CreateVehiculo (CreateVehiculoRequest) returns (VehiculoResponse);
+  rpc FindAll (FindAllRequest) returns (VehiculosListResponse);
+  rpc UpdateVehiculo (UpdateVehiculoRequest) returns (VehiculoResponse);
+  rpc RemoveVehiculo (RemoveVehiculoRequest) returns (RemoveVehiculoResponse);
+}
+
+// =============================
+// Mensajes para las peticiones
+// =============================
+
+// Buscar por ID
+message FindOneRequest {
+  int32 id = 1;
+}
+
+// Crear un vehículo
+message CreateVehiculoRequest {
+  string placa = 1;
+  string tipo = 2;
+  float capacidad = 3;
+  bool estado = 4;
+}
+
+// Listar todos los vehículos (sin parámetros)
+message FindAllRequest {}
+
+// Actualizar un vehículo
+message UpdateVehiculoRequest {
+  int32 id = 1;
+  string placa = 2;
+  string tipo = 3;
+  float capacidad = 4;
+  bool estado = 5;
+}
+
+// Eliminar un vehículo
+message RemoveVehiculoRequest {
+  int32 id = 1;
+}
+
+// =============================
+// Mensajes para las respuestas
+// =============================
+
+// Respuesta para una sola entidad
+message VehiculoResponse {
+  int32 id = 1;
+  string placa = 2;
+  string tipo = 3;
+  float capacidad = 4;
+  bool estado = 5;
+}
+
+// Lista de vehículos
+message VehiculosListResponse {
+  repeated VehiculoResponse vehiculos = 1;
+}
+
+// Respuesta al eliminar
+message RemoveVehiculoResponse {
+  string message = 1;
+}
