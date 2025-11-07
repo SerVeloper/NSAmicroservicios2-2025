@@ -51,6 +51,30 @@ app.get('/envios', async (_, res) => {
   res.json(result.rows);
 });
 
+//eliminar envio
+app.delete('/envios/:id', async (req, res) => {
+  const { id } = req.params;
+  const result = await pool.query('DELETE FROM envios WHERE id = $1 RETURNING *', [id]);
+  if (result.rowCount === 0) {
+    return res.status(404).json({ error: 'Envio not found' });
+  }
+  res.json({ message: 'Envio deleted successfully', envio: result.rows[0] });
+});
+
+//actualizar envio
+app.put('/envios/:id', async (req, res) => {
+  const { id } = req.params;
+  const { vehiculo_id, origen, destino, fecha_envio, estado } = req.body;
+  const result = await pool.query(
+    'UPDATE envios SET vehiculo_id = $1, origen = $2, destino = $3, fecha_envio = $4, estado = $5 WHERE id = $6 RETURNING *',
+    [vehiculo_id, origen, destino, fecha_envio, estado, id]
+  );
+  if (result.rowCount === 0) {
+    return res.status(404).json({ error: 'Envio not found' });
+  }
+  res.json({ message: 'Envio updated successfully', envio: result.rows[0] });
+});
+
 app.listen(3000, async () => {
   // Crear tabla si no existe
   await pool.query(`
